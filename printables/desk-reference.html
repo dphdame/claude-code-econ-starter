@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desk Reference — Claude Code Econ Starter</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #111;
+    background: #fff;
+    line-height: 1.45;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0.6in 0.4in;
+    font-size: 10.5pt;
+  }
+  h1 { font-size: 15pt; margin-bottom: 2pt; }
+  h2 { font-size: 12pt; margin: 14pt 0 6pt; border-bottom: 1.5px solid #111; padding-bottom: 2pt; }
+  h3 { font-size: 10.5pt; margin: 10pt 0 4pt; }
+  p.sub { font-size: 9pt; color: #444; margin-bottom: 10pt; }
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; }
+  th, td { border: 1px solid #999; padding: 3pt 6pt; text-align: left; vertical-align: top; font-size: 9.5pt; }
+  th { background: #eee; font-family: Helvetica, Arial, sans-serif; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.04em; }
+  td.box { width: 28pt; text-align: center; font-size: 12pt; }
+  td.num { width: 16pt; text-align: center; color: #555; }
+  .note { font-size: 9pt; color: #333; margin: 4pt 0 10pt; }
+  dl { margin: 6pt 0; }
+  dt { font-weight: bold; margin-top: 6pt; }
+  dd { margin-left: 0; }
+  dd .why { color: #333; font-style: italic; font-size: 9.5pt; }
+  .capture { border: 1.5px solid #111; padding: 8pt 10pt; margin-top: 8pt; }
+  .capture p { margin-bottom: 4pt; }
+  .rule-lines div { border-bottom: 1px solid #bbb; height: 16pt; }
+  footer { margin-top: 14pt; font-size: 8.5pt; color: #555; border-top: 1px solid #999; padding-top: 4pt;
+           font-family: Helvetica, Arial, sans-serif; }
+  .fill { display: inline-block; border-bottom: 1px solid #555; min-width: 110pt; }
+  @media print {
+    body { padding: 0; max-width: none; }
+    .page-break { break-before: page; }
+    a { color: #111; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Verification Checklist for AI-Assisted Empirical Work</h1>
+<p class="sub">Run before any result, citation, or claim is treated as final. Each item is pass or fail; a skipped item is a fail. The agent satisfies this checklist before a human reads the output. &nbsp;·&nbsp; Project: <span class="fill"></span> &nbsp; Date: <span class="fill" style="min-width:70pt"></span></p>
+
+<h2>A. Citations</h2>
+<table>
+  <tr><th style="width:16pt">#</th><th>Check</th><th style="width:28pt">P/F</th></tr>
+  <tr><td class="num">1</td><td>Every citation was fetched from its source, never accepted from generation: the DOI or URL resolves</td><td class="box">☐</td></tr>
+  <tr><td class="num">2</td><td>Author names and title match the fetched source exactly</td><td class="box">☐</td></tr>
+  <tr><td class="num">3</td><td>Journal, year, volume, and pages match the fetched source</td><td class="box">☐</td></tr>
+  <tr><td class="num">4</td><td>The claim attributed to each paper appears in that paper</td><td class="box">☐</td></tr>
+</table>
+<p class="note">Unchecked citations accumulate hallucination debt: one fabricated reference becomes the foundation for claims built on top of it.</p>
+
+<h2>B. Code and estimators: the planted-truth routine</h2>
+<table>
+  <tr><th style="width:16pt">#</th><th>Check</th><th style="width:28pt">P/F</th></tr>
+  <tr><td class="num">5</td><td>The estimand is written down from the paper or canonical implementation before reading the generated code</td><td class="box">☐</td></tr>
+  <tr><td class="num">6</td><td>The low-visibility choices are named in the spec: comparison set, weighting, transformation window, indexing</td><td class="box">☐</td></tr>
+  <tr><td class="num">7</td><td>A controlled data-generating process exists with a planted true value for the target parameter</td><td class="box">☐</td></tr>
+  <tr><td class="num">8</td><td>The implementation recovers the planted value across many simulated draws, within a stated tolerance</td><td class="box">☐</td></tr>
+  <tr><td class="num">9</td><td>The simulated data break the easy symmetries (unequal group sizes, unbalanced timing, missing cells)</td><td class="box">☐</td></tr>
+  <tr><td class="num">10</td><td>The code was read line by line against the source on every weight, aggregation rule, and index</td><td class="box">☐</td></tr>
+</table>
+<p class="note">The kit's validate-estimator skill walks an agent through items 5–10. Some errors appear only in the reading, never in the simulation output.</p>
+
+<h2>C. Empirical claims</h2>
+<table>
+  <tr><th style="width:16pt">#</th><th>Check</th><th style="width:28pt">P/F</th></tr>
+  <tr><td class="num">11</td><td>Every number in prose traces to a computed value in a saved output file</td><td class="box">☐</td></tr>
+  <tr><td class="num">12</td><td>Every factual claim about external data names its source, and the source says what the claim says</td><td class="box">☐</td></tr>
+  <tr><td class="num">13</td><td>Anything published or shared externally received the highest scrutiny</td><td class="box">☐</td></tr>
+</table>
+
+<div class="capture">
+  <h3>End-of-session capture (five minutes, before closing)</h3>
+  <p><strong>What changed:</strong> files touched, functions added, results produced.</p>
+  <div class="rule-lines"><div></div><div></div></div>
+  <p style="margin-top:6pt"><strong>Why it changed:</strong> reasons behind non-obvious choices; constraints and trade-offs.</p>
+  <div class="rule-lines"><div></div><div></div></div>
+  <p style="margin-top:6pt"><strong>What comes next:</strong> concrete next tasks, written while still clear.</p>
+  <div class="rule-lines"><div></div><div></div></div>
+  <p style="margin-top:6pt"><strong>What failed:</strong> approaches rejected, each with its reason, so nobody re-explores a dead end.</p>
+  <div class="rule-lines"><div></div><div></div></div>
+</div>
+
+<footer>claude-code-econ-starter · MIT · Victoria Cholette · tooearlytosay.com · Why these items: tooearlytosay.com/research/methodology/verification-tax/ and /validate-ai-econometric-code/</footer>
+
+<div class="page-break"></div>
+
+<h1>Week-One Glossary</h1>
+<p class="sub">Ten terms from the first week of using Claude Code on an empirical project. Keep beside the keyboard; retire when they feel obvious.</p>
+
+<dl>
+  <dt>commit</dt><dd>A saved snapshot of the project at a point in time, recorded by git with a short message saying what changed. <span class="why">A commit right after each working result makes any past state of the analysis recoverable.</span></dd>
+  <dt>diff</dt><dd>The line-by-line difference between two versions of a file: what was added, what was removed. <span class="why">Reading the diff is how AI-written changes get reviewed before they are trusted.</span></dd>
+  <dt>PR (pull request)</dt><dd>A proposed batch of commits packaged for review before it merges into the main line of the project. <span class="why">A coauthor can read exactly what changed in the analysis and approve it before it becomes the record.</span></dd>
+  <dt>.gitignore</dt><dd>A text file listing what git must never track: data files, credentials, caches, generated output. <span class="why">It keeps restricted-use microdata and API keys out of a repository that may one day ship publicly.</span></dd>
+  <dt>DuckDB</dt><dd>A database engine that runs inside a script or notebook, no server to install, and queries files directly with SQL. <span class="why">It aggregates a multi-gigabyte extract on a laptop without loading the whole file into memory.</span></dd>
+  <dt>parquet</dt><dd>A compressed, column-oriented file format for tabular data. <span class="why">Column types survive between sessions, so FIPS codes saved as strings stay strings, and large panels load fast.</span></dd>
+  <dt>FIPS</dt><dd>Federal Information Processing Standards codes: numeric identifiers for states (2 digits), counties (5), census tracts (11). <span class="why">The merge keys of US regional data; they carry leading zeros, so storing them as integers silently corrupts every merge downstream.</span></dd>
+  <dt>context window</dt><dd>The bounded amount of text a model can consider at once; every file read and every exchange consumes part of it. <span class="why">The window is a budget: reading ten files costs more than deeply analyzing one.</span></dd>
+  <dt>subagent</dt><dd>A helper the agent creates with its own separate context window; it executes a focused task and reports back a summary. <span class="why">Like delegating retrieval to an RA: dead ends stay in the helper's workspace, only the summary lands in the main session.</span></dd>
+  <dt>compaction</dt><dd>The automatic summarization Claude Code performs when a session nears its context limit. <span class="why">Summaries lose nuance: the decision survives, the three reasons an alternative was rejected may not. Decisions belong in notes files that persist.</span></dd>
+</dl>
+
+<footer>claude-code-econ-starter · MIT · Victoria Cholette · tooearlytosay.com · Full walkthrough: tooearlytosay.com/research/methodology/first-session-claude-code/</footer>
+
+</body>
+</html>
