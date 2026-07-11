@@ -49,6 +49,8 @@ When these starters feel small, [tets-claude-skills](https://github.com/dphdame/
 
 Start with the first-session walkthrough at [tooearlytosay.com/research/methodology/first-session-claude-code/](https://tooearlytosay.com/research/methodology/first-session-claude-code/) and keep [GLOSSARY.md](GLOSSARY.md) open beside it.
 
+The kit is the setup layer for the [AI for Applied Researchers sequence](https://tooearlytosay.com/start-here/ai-for-applied-researchers/), five steps from literature review to documentation; the sequence page shows where each file earns its keep.
+
 ---
 
 MIT License · Tested with Claude Code v2.1.205 · Victoria Cholette · [tooearlytosay.com](https://tooearlytosay.com/)
